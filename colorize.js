@@ -107,6 +107,33 @@ function colorize(node, root) {
   }
 }
 
+function nTree(node) {
+  if (node.children) {
+    node.color = "B";
+    node.children.forEach(child => {
+      if (child.color === "W") {
+        nTree(child);
+      }
+      if (child.color === "C") {
+        node.color = "C";
+      }
+    });
+    if (node.fixed) {
+      if (node.color === "B") {
+        node.filter = true;
+        node.color = "C";
+      }
+    }
+  } else {
+    if (node.fixed) {
+      node.filter = true;
+      node.color = "C";
+    } else {
+      node.color = "B";
+    }
+  }
+}
+
 function applyFilterToSiblings(node) {
   if (getColor(node) === "B") {
     applyFilter(node)
@@ -128,6 +155,32 @@ function applyFilterToSiblings(node) {
           applyFilter(getRight(node));
         }
       }
+    }
+  }
+}
+
+function applyFilterToAllSiblings(node) {
+  if (node.color === "B") {
+    node.filter = true;
+  } else {
+    if (node.children) {
+      node.filter = true;
+      node.children.forEach(child => {
+        if (child.color === "C") {
+          node.filter = false;
+        }
+      });
+      if (!node.filter) {
+        node.children.forEach(child => {
+          if (child.color === "C") {
+            applyFilterToAllSiblings(child);
+          } else {
+            applyFilter(child);
+          }
+        })
+      }
+    } else {
+      node.filter = true;
     }
   }
 }
@@ -213,11 +266,116 @@ function start() {
     color: "W"
   }
 
+  nTreeRoot = {
+    children: [
+      {
+        children: [
+          {
+            children: null,
+            fixed: false,
+            filter: false,
+            color: "W"
+          },
+          {
+            children: null,
+            fixed: false,
+            filter: false,
+            color: "W"
+          },
+          {
+            children: null,
+            fixed: false,
+            filter: false,
+            color: "W"
+          }
+        ],
+        fixed: false,
+        filter: false,
+        color: "W"
+      },
+      {
+        children: [
+          {
+            children: null,
+            fixed: false,
+            filter: false,
+            color: "W"
+          },
+          {
+            children: null,
+            fixed: false,
+            filter: false,
+            color: "W"
+          }
+        ],
+        fixed: false,
+        filter: false,
+        color: "W"
+      },
+      {
+        children: [
+          {
+            children: null,
+            fixed: true,
+            filter: false,
+            color: "W"
+          },
+          {
+            children: [
+              {
+                children: [
+                  {children: [
+
+                  ],
+                  fixed: false,
+                  filter: false,
+                  color: "W"}
+                ],
+                fixed: false,
+                filter: false,
+                color: "W"
+              },
+              {
+                children: [
+                  {
+                    children: [
+
+                    ],
+                    fixed: false,
+                    filter: false,
+                    color: "W"
+                  }
+                ],
+                fixed: false,
+                filter: false,
+                color: "W"
+              }
+            ],
+            fixed: true,
+            filter: false,
+            color: "W"
+          }
+        ],
+        fixed: false,
+        filter: false,
+        color: "W"
+      }
+    ],
+    fixed: false,
+    filter: false,
+    color: "W"
+  }
+
   console.log(root);
   colorize(root);
   console.log(root);
   applyFilterToSiblings(root)
   console.log(root);
+
+  nTree(nTreeRoot);
+  console.log(nTreeRoot);
+  applyFilterToAllSiblings(nTreeRoot);
+  console.log(nTreeRoot);
 }
 
 start();
