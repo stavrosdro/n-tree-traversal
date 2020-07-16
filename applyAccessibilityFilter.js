@@ -16,13 +16,11 @@ function hasPositionFixed(node) {
 
 function applyFilter(node) {
   // set filter css property, void
-  node.filter = true;
   node.style.filter = 'invert(200%)';
 }
 
 function removeFilter(node) {
   // set filter css property, void
-  node.filter = false;
   node.style.filter = null;
 }
 
@@ -92,7 +90,7 @@ function removeFilterFromNodes(node) {
 }
 
 $(document).ready(function () {
-  var main = document.getElementsByTagName("main")[0];
-  nTree(main);
-  applyFilterToNodes(main);
+  var body = document.getElementsByTagName("body")[0];
+  nTree(body);
+  applyFilterToNodes(body);
 })
