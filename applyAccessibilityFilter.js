@@ -26,11 +26,6 @@ function removeFilter(node) {
   node.classList.remove("accessibilityFilter");
 }
 
-function getFilter(node) {
-  // get existence of filter property, return boolean value
-  return node.filter;
-}
-
 function setColor(node, color) {
   // set node color, void
   node.color = color
