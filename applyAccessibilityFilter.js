@@ -17,13 +17,18 @@ function hasPositionFixed(node) {
 function applyFilter(node) {
   // set filter css property, void
   node.filter = true;
-  node.classList.add("accessibilityFilter");
+  node.style.filter = 'invert(200%)';
 }
 
 function removeFilter(node) {
   // set filter css property, void
   node.filter = false;
-  node.classList.remove("accessibilityFilter");
+  node.style.filter = null;
+}
+
+function hasFilter(node) {
+  // checks if node has filter css property return boolean value
+  return node.style.filter ? true : false;
 }
 
 function setColor(node, color) {
@@ -66,12 +71,23 @@ function applyFilterToNodes(node) {
     applyFilter(node);
   } else {
     if (hasPositionFixed(node)) {
-      applyFilter(node)
+      applyFilter(node);
     } else {
       getChildren(node).forEach(child => {
         applyFilterToNodes(child);
       })
     }
+  }
+}
+
+function removeFilterFromNodes(node) {
+  if (hasFilter(node)) {
+    removeFilter(node);
+  }
+  if (hasChildren(node)) {
+    getChildren(node).forEach(child => {
+      removeFilterToNodes(child);
+    });
   }
 }
 
