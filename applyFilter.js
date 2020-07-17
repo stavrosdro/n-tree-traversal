@@ -84,7 +84,7 @@ function removeFilterFromNodes(node) {
   }
   if (hasChildren(node)) {
     getChildren(node).forEach(child => {
-      removeFilterToNodes(child);
+      removeFilterFromNodes(child);
     });
   }
 }
