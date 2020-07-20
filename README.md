@@ -9,3 +9,6 @@ malfunctions.
 In my example, I apply "filter: invert(200%)" property as you can see:
 `node.style.filter = 'invert(200%)';`
 
+I added another file in order to increase/decrease/reset contrast filter. 
+each step increases/decreases the filter value by 10% and reset removes it
+entirely.
