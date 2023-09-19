@@ -5,7 +5,7 @@ function hasChildren(node) {
 
 function getChildren(node) {
   // get node children return list of nodes value
-  return node.children;
+  return [...node.children];
 }
 
 function hasPositionFixed(node) {
